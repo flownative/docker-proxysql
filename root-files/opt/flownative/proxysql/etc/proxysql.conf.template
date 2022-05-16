@@ -1,0 +1,44 @@
+datadir="/var/lib/proxysql"
+
+admin_variables=
+{
+  mysql_ifaces="127.0.0.1:6032"
+}
+
+mysql_variables=
+{
+  interfaces="0.0.0.0:3306"
+  threads=2
+  max_connections=2048
+  default_query_delay=0
+  default_query_timeout=36000000
+  have_compress=true
+  poll_timeout=2000
+  default_schema="information_schema"
+  stacksize=1048576
+  connect_timeout_server=3000
+  monitor_username="${PROXYSQL_USER_USERNAME}"
+  monitor_password="${PROXYSQL_USER_PASSWORD}"
+  monitor_history=600000
+  monitor_connect_interval=5000
+  monitor_ping_interval=2000
+  monitor_read_only_interval=1500
+  monitor_read_only_timeout=500
+  ping_interval_server_msec=15000
+  ping_timeout_server=500
+  commands_stats=true
+  sessions_sort=true
+  connect_retries_on_failure=10
+}
+
+mysql_servers =
+(
+    { address="${PROXYSQL_SERVERS_1_HOST}" , port=${PROXYSQL_SERVERS_1_PORT} , hostgroup=10, max_connections=${PROXYSQL_SERVERS_1_MAX_CONNECTIONS} },
+    { address="${PROXYSQL_SERVERS_2_HOST}" , port=${PROXYSQL_SERVERS_2_PORT} , hostgroup=10, max_connections=${PROXYSQL_SERVERS_2_MAX_CONNECTIONS} },
+    { address="${PROXYSQL_SERVERS_3_HOST}" , port=${PROXYSQL_SERVERS_3_PORT} , hostgroup=10, max_connections=${PROXYSQL_SERVERS_3_MAX_CONNECTIONS} }
+)
+
+mysql_users:
+(
+    { username = "${PROXYSQL_USER_USERNAME}" , password = "${PROXYSQL_USER_PASSWORD}" , default_hostgroup = 10 , active = 1 }
+)
