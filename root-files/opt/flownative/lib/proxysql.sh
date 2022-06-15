@@ -51,6 +51,9 @@ EOF
 #
 proxysql_initialize() {
     info "ProxySQL: Initializing ..."
+    info "ProxySQL: Will connect with user ${PROXYSQL_USER_USERNAME}"
+    info "ProxySQL: Configured servers ${PROXYSQL_SERVERS_1_HOST}:${PROXYSQL_SERVERS_1_PORT}, ${PROXYSQL_SERVERS_2_HOST}:${PROXYSQL_SERVERS_2_PORT} and ${PROXYSQL_SERVERS_3_HOST}:${PROXYSQL_SERVERS_3_PORT}"
+    info "ProxySQL: Maximum connections are ${PROXYSQL_SERVERS_1_MAX_CONNECTIONS}, ${PROXYSQL_SERVERS_1_MAX_CONNECTIONS} and ${PROXYSQL_SERVERS_1_MAX_CONNECTIONS} respectively"
 
     envsubst < "${PROXYSQL_CONF_PATH}/proxysql.conf.template" > "${PROXYSQL_CONF_PATH}/proxysql.conf"
 }
